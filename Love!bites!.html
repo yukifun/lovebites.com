@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Bites - Cookie Order</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Lovey-Dovey Pink Theme */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe4e1;
+            color: #4a4a4a;
+        }
+
+        header {
+            text-align: center;
+            font-size: 28px;
+            padding: 20px;
+            background-color: #ff99cc;
+            color: white;
+            border-bottom: 4px solid #ff6699;
+            position: relative;
+        }
+
+        header::after {
+            content: '🍪💖';
+            font-size: 24px;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff0f5;
+            border: 2px solid #ff99cc;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(255, 182, 193, 0.3);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #d14785;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ff99cc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ff66b3;
+            box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+        }
+
+        button {
+            background-color: #ff66b3;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff3385;
+        }
+
+        .note, .decor {
+            text-align: center;
+            color: #ff6699;
+            font-size: 14px;
+        }
+
+        .decor {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .decor span {
+            color: #d14785;
+        }
+
+        .cookie {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .cookie img {
+            width: 50px;
+            height: 50px;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Love Bites 🍪<br>
+        <span style="font-size: 18px; font-weight: normal;">Sweet treats for sweet moments!</span>
+    </header>
+    <form id="orderForm">
+        <label for="name">Your Sweet Name 🍭</label>
+        <input type="text" id="name" name="name" placeholder="E.g., Alice" required>
+        
+        <label for="flavor">Pick a Flavor 🌈</label>
+        <select id="flavor" name="flavor" required>
+            <option value="Matcha">Matcha</option>
+            <option value="Red Velvet">Red Velvet</option>
+            <option value="Original">Original</option>
+        </select>
+
+        <label for="type">Pick Your Treat 🍪</label>
+        <select id="type" name="type" required>
+            <option value="Cookie Only (2 pcs) - 8k">Cookie Only (2 pcs) - 8k</option>
+            <option value="Ice Cream Cookie Sandwich - 15k">Ice Cream Cookie Sandwich - 15k</option>
+        </select>
+        
+        <label for="quantity">How Many? 🛍️</label>
+        <input type="number" id="quantity" name="quantity" min="1" placeholder="E.g., 3" required>
+        
+        <button type="button" onclick="sendOrder()">Place My Order!</button>
+        <div class="note">* Prices: Cookie Only - 8k | Ice Cream Sandwich - 15k</div>
+        <div class="decor">💖 Thank you for choosing <span>Love Bites!</span> 💖</div>
+        <div class="cookie">
+            <img src="https://img.icons8.com/color/96/cookie.png" alt="Cookie">
+            <img src="https://img.icons8.com/color/96/cookie.png" alt="Cookie">
+            <img src="https://img.icons8.com/color/96/cookie.png" alt="Cookie">
+        </div>
+    </form>
+
+    <script>
+        function sendOrder() {
+            // Get form field values
+            const name = document.getElementById('name').value.trim();
+            const flavor = document.getElementById('flavor').value;
+            const type = document.getElementById('type').value;
+            const quantity = document.getElementById('quantity').value;
+
+            // Validate inputs
+            if (!name || !flavor || !type || !quantity || quantity <= 0) {
+                alert("Please fill in all fields correctly!");
+                return;
+            }
+
+            // Create WhatsApp message
+            const message = `🍪 *New Order from Love Bites!* 🍪\n\n👤 *Name*: ${name}\n🌈 *Flavor*: ${flavor}\n🍪 *Type*: ${type}\n📦 *Quantity*: ${quantity}\n\n💖 Thank you!`;
+
+            // Encode message
+            const encodedMessage = encodeURIComponent(message);
+            
+            // WhatsApp number
+            const waNumber = "628117878960";
+
+            // WhatsApp URL
+            const whatsappURL = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+
+            // Open WhatsApp
+            window.open(whatsappURL, "_blank");
+        }
+    </script>
+</body>
+</html>
